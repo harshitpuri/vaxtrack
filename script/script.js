@@ -101,10 +101,10 @@ function loadCollapse(sortType, searchVal = '') {
             const CONTENT = ACCORDION.content.cloneNode(true);
             //Load the counters on the top
             // Change content
-            CONTENT.querySelector('.currentVaccineNumber').innerHTML = `<img alt="syringe" src="Images/syringe.png" style="height:14px;"> ${formatNumberWithCommas(country.totalVaccine)}`;
+            CONTENT.querySelector('.currentVaccineNumber').innerHTML = `<img alt="syringe" src="images/syringe.png" style="height:14px;"> ${formatNumberWithCommas(country.totalVaccine)}`;
             CONTENT.querySelector('.countryname').innerHTML = country.name;
             CONTENT.querySelector('.position').innerHTML = country.position;
-            CONTENT.querySelector('.populationpercent').innerHTML = `<img alt="syringe" src="Images/Population.png" style="height:14px;"> ${country.vaccinatedPercent}`;
+            CONTENT.querySelector('.populationpercent').innerHTML = `<img alt="syringe" src="images/Population.png" style="height:14px;"> ${country.vaccinatedPercent}`;
             CONTENT.querySelector('.differenceCounter').innerHTML = formatDifferenceWithCommas(country.totalVaccineDifferences);
             CONTENT.querySelector('.accordion').parentNode.classList.add("countryCard");
 
@@ -183,10 +183,10 @@ function loadContinents(sortType, searchVal = '') {
         continentData.forEach(continent => {
             const CONTENT = ACCORDION.content.cloneNode(true);
             // Change content
-            CONTENT.querySelector('.currentVaccineNumber').innerHTML = `<img alt="syringe" src="Images/syringe.png" style="height:14px;"> ${formatNumberWithCommas(continent.totalVaccine)}`;
+            CONTENT.querySelector('.currentVaccineNumber').innerHTML = `<img alt="syringe" src="images/syringe.png" style="height:14px;"> ${formatNumberWithCommas(continent.totalVaccine)}`;
             CONTENT.querySelector('.countryname').innerHTML = continent.name;
             CONTENT.querySelector('.position').innerHTML = continent.position;
-            CONTENT.querySelector('.populationpercent').innerHTML = `<img alt="syringe" src="Images/Population.png" style="height:14px;"> ${continent.vaccinatedPercent}`;
+            CONTENT.querySelector('.populationpercent').innerHTML = `<img alt="syringe" src="images/Population.png" style="height:14px;"> ${continent.vaccinatedPercent}`;
             CONTENT.querySelector('.differenceCounter').innerHTML = formatDifferenceWithCommas(continent.totalVaccineDifferences);
             CONTENT.querySelector('.accordion').parentNode.classList.add("continentCard");
 
@@ -275,7 +275,7 @@ function updateListFilter(selectedItem) {
     loadCollapse(selectedItem);
     loadContinents(selectedItem);
     // Keep arrays that are values of ddAttrs in order
-    $("#dropdownMenuButton").html(`<img alt=${ddAttrs.alts[selectedItem]} src="Images/${ddAttrs.imgs[selectedItem]}">${ddAttrs.text[selectedItem]}`);
+    $("#dropdownMenuButton").html(`<img alt=${ddAttrs.alts[selectedItem]} src="images/${ddAttrs.imgs[selectedItem]}">${ddAttrs.text[selectedItem]}`);
 
     if ($('#search').val()) {
         search($('#search').val());
