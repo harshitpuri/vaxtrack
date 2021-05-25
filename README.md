@@ -1,0 +1,1 @@
+[VaxTrack.tk](https://vaxtrack.tk/) tracks the number of COVID-19 vaccines administered worldwide in real time.

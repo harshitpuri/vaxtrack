@@ -1,0 +1,194 @@
+<head>
+  <title>VaxTrack | COVID-19 Vaccine Tracker</title>
+  <meta name="description"
+    content="COVID-19 Vaccine Tracker. This website track the number of dosed administered in real time around the World.">
+  <meta http-equiv="Cache-control" content="no-cache">
+  <link rel="icon" alt="syringe" href="images/syringe.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="style/style.css">
+</head>
+
+<body>
+  <div class="page">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-dark">
+      <div class="container">
+        <a class="navbar-brand" href="/"><img id="navLogo" alt="VaxTrack Logo" src="images/Logo.png" width="160px"></a>
+      </div>
+    </nav>
+    <br>
+
+
+    <div class="container" id="counters" style="padding-top: 60px;">
+      <template id="countersTemplate">
+        <div class="row">
+          <div class="four col-md-6" style="padding-top: 15px;">
+            <div class="counter-box green">
+              <i class="fa fa-thumbs-o-up"></i><span class="counter" id="totvalue">{{totvalue}}</span>
+              <p>Vaccines administered around the world</p>
+            </div>
+          </div>
+          <div class="four col-md-6" style="padding-top: 15px;">
+            <div class="counter-box blue">
+              <i class="fa fa-thumbs-o-up"></i><span class="counter" id="peopleVaccinated">{{peopleVaccinated}}</span>
+              <p>People received at least one dose</p>
+            </div>
+          </div>
+          <div class="col-6 col-md-6" style="padding-top: 15px;">
+            <div class="counter-box green-light">
+              <i class="fa fa-thumbs-o-up"></i><span class="counter2" id="totvaccinated">{{totvaccinated}}</span>
+              <p>of the population received at least 1 dose of vaccine</p>
+            </div>
+          </div>
+          <div class="col-6 col-md-6" style="padding-top: 15px;">
+            <div class="counter-box blue-light"><i class="fa fa-thumbs-o-up"></i><span class="counter1"
+                id="fullyVaccinated">{{fullyVaccinated}}</span>
+              <p>of the population is fully vaccinated</p>
+            </div>
+          </div>
+        </div>
+      </template>
+    </div>
+
+
+    <div class="container" style="padding-top:20px;">
+      <div class="row">
+        <div id="filterDiv" style="display:none;" class="col-12">
+          <div class="row p-3" style="justify-content: center; align-items:center;">
+            <div class="col-sm-6 col-md-2  align-self-center deletepadding widthFitContent">
+              <div class="normalText">Sort by:</div>
+            </div>
+            <div class="col-sm-6 col-lg-3 col-md-4 deletepadding widthFitContent">
+              <div class="dropdown">
+                <button class="btn btn-light dropdown-toggle normalText" type="button" id="dropdownMenuButton"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <img alt="syringe" src="images/syringe.png" style="width: 20px; padding-right:10px;">Doses
+                  Administered
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item normalText" onclick="updateListFilter(0)"><img alt="syringe"
+                      src="images/syringe.png" style="width: 25px; padding-right:10px;">Doses
+                    Administered </a>
+                  <a class="dropdown-item normalText" onclick="updateListFilter(1)"><img alt="population"
+                      src="images/Population.png" style="width: 25px; padding-right:10px;">% Fully Vaccinated </a>
+                  <a class="dropdown-item normalText" onclick="updateListFilter(2)"><img alt="population"
+                      src="images/alphabetical.png" style="width: 25px; padding-right:10px;">Alphabetical </a>
+                </div>
+              </div>
+            </div>
+            <div style="position: relative;" class="col-sm-12 col-lg-7 col-md-6 deletepadding">
+              <img src="images/Search.png" class="search-icon" alt="">
+              <input class="float-right search" type="search" autocomplete="off" name="search" placeholder="Search for Continents or Countries" id="search">
+            </div>
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="row left-right-padding15" id="collapse" style="display: none;padding-top: 15px;">
+            <div class="col-md-12">
+              <div class="row grouplist" id="collapseContinents">
+                <div class="col-12 groupList-title">Continents</div>
+              </div>
+            </div>
+            <div class="col-md-12" style="padding-top: 15px;">
+            <div class="row grouplist" id="collapseCountries">
+                <div class="col-12 groupList-title">Countries</div>
+                <template id="accordion">
+                <div class="col-md-4">
+                    <div class="accordion">
+                    <div class="row deletepadding">
+                        <div class="col-1" style="padding-top: 2px;">
+                        <text class="position">{{position}}</text>
+                        </div>
+                        <div class="col deletepadding">
+                        <text class="countryname">{{country}}</text>
+                        </div>
+                        <div class="col" style="padding-right:0;">
+                        <text class="currentVaccineNumber">
+                            <img alt="syringe" src="Images/syringe.png" style="height:14px;"> {{totalVaccines}}
+                        </text>
+                        </div>
+                        <div class="col-1 deletepadding" style="max-width: 22px;">
+                        <text class="position"></text>
+                        </div>
+                    </div>
+                    <div class="row" style="padding-top: 5px;">
+                        <div class="col-1">
+                        <text class="position"></text>
+                        </div>
+                        <div class="col-7 deletepadding" style="padding-top: 4px;">
+                        <text class="populationpercent">
+                            <img alt="syringe" src="images/Population.png" style="width: 20px; padding-right: 5px;" />
+                            {{populationPercent}}
+                        </text>
+                        </div>
+                        <div class="col-3 deletepadding">
+                        <div>
+                            <text class="differenceCounter">{{totalVaccinesDifferences}}</text>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </template>
+            </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="loadingmodal" style="padding-top: 50%;">
+          <center>
+            <div class="lds-ellipsis">
+            </div>
+          </center>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" id="license" style="padding: 10; display: none;">
+      <center>
+        <div class="col-12 col-md-4">
+          <center>
+            Data Source: <a title="Our World in Data" href="https://ourworldindata.org/"
+              rel="noopener" target="_blank">
+              Our World in Data
+            </a>
+          </center>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <center>
+              Hosted on Github Pages @ 
+              <a href="https://github.com/harshitpuri">Harshit Puri</a>
+          </center>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <center>
+              Data Source Repo @ 
+              <a href="https://github.com/owid/covid-19-data/">OWID Github</a>
+          </center>
+        </div>
+      </div>
+      </center>
+  </div>
+
+  <!-- Go To Top
+	============================================= -->
+	<!-- <div id="gotoTop" class="icon-double-angle-up bg-white text-dark rounded-circle shadow"></div> -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="script/script.js"></script>
+  <script src="script/data.js"></script>
+  <script>
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    });
+  </script>
+</body>
